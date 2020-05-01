@@ -66,7 +66,7 @@ export interface ISideNav {
 export class ApiEndpoint {
 
     // public static BASE_URL = 'http://localhost:9090';
-    public static BASE_URL = '';
+    public static BASE_URL = 'http://apis.pesl.org.in';
 
     public static SECURITY = ApiEndpoint.BASE_URL + '/security';
     public static LOGIN = ApiEndpoint.BASE_URL + '/login';
