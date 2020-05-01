@@ -1,0 +1,55 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Class Details</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/maintenances/classes">
+        <mat-icon class="white-icon">keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button class="btn btn-cancel" (click)="delete()">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Delete
+      </button>
+      <button class="btn btn-edit" (click)="edit()">
+        <mat-icon class="white-icon">edit</mat-icon>&nbsp;Edit
+      </button>
+      <button class="btn btn-save" [routerLink]="['/admin/maintenances/classes/add']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;New Class
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" *ngIf="standard">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p style="font-weight: bold; font-size: 14px;">Class Info</p>
+        <hr>
+      </div>
+      <div class="col-md-4">
+        <p>Name : {{standard.name}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Description : {{standard.description}}</p>
+      </div>
+    </div>
+    <br><br><br>
+    <div class="d-flex justify-content-center align-items-end">
+      <div class=" p-5">
+        <span class="display-2">{{students.length}}</span>
+        &nbsp;
+        <span class="display-4">Student(s)</span>
+        <p class="d-flex justify-content-center align-items-end">
+          Show Students
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>

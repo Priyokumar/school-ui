@@ -1,0 +1,50 @@
+<div class="mat-elevation-z2">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Admission Fee Structures</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" [routerLink]="['/admin/maintenances/admission-fees/add']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;Add Admission Fee Structure
+      </button>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-12 p-0 table-header mb-5">
+
+      <div class="no-shadow w-100">
+        <table mat-table [dataSource]="admFeeStructureDataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+            <td style="padding-left: 25px !important;" mat-cell *matCellDef="let row; let i = index" (click)="onClickRow(row.id)">{{i+1}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="year">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Year</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">
+              {{row.year}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" class="text-right" (click)="onDeleteRow(row.id)">
+              <mat-icon style="color: firebrick; cursor: pointer;">delete</mat-icon> &nbsp;
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="admFeeStructureColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: admFeeStructureColumns ; let i = index;">
+          </tr>
+        </table>
+        <div class="d-flex justify-content-center align-items-center" style="height: 40vh;" *ngIf="admFeeStructures.length <= 0">
+          <div>
+            <h4 class="font-grey font-300">No student to display.</h4>
+          </div>
+        </div> 
+      </div>
+
+    </div>
+  </div>
+</div>

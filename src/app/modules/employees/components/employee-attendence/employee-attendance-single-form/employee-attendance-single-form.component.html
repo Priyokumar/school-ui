@@ -1,0 +1,27 @@
+<td class="pl-2">
+    {{(employee$ | async)?.data?.firstName}} {{(employee$ | async)?.data?.middleName}} {{(employee$ | async)?.data?.lastName}}
+</td>
+<td class="pl-2">
+    {{attendance.day}}
+</td>
+<td class="pl-2">
+    {{attendance.date | date}}
+</td>
+<td>
+    <input [ngClass]="getClass(attendance)" type="text" [(ngModel)]="attendance.timeIn" [ngxTimepicker]="timeIn"
+        readonly>
+    <ngx-material-timepicker #timeIn [enableKeyboardInput]="true" (timeSet)="afterTimeInChange($event)">
+    </ngx-material-timepicker>
+</td>
+<td>
+    <input [ngClass]="getClass(attendance)" type="text" [(ngModel)]="attendance.timeOut" [ngxTimepicker]="timeOut"
+        readonly>
+    <ngx-material-timepicker #timeOut [enableKeyboardInput]="true" (timeSet)="afterTimeOutChange($event)">
+    </ngx-material-timepicker>
+</td>
+<td>
+    <input [ngClass]="getClass(attendance)" type="text" [(ngModel)]="attendance.total" readonly>
+</td>
+<td>
+    <input [ngClass]="getClass(attendance)" type="text" [(ngModel)]="attendance.comment">
+</td>

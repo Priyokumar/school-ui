@@ -1,0 +1,51 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Class</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-cancel" routerLink="/admin/maintenances/classes">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Cancel
+      </button>
+      <button class="btn btn-save" (click)="save()" [disabled]='!standardForm.valid'>
+        <mat-icon class="white-icon">save_alt</mat-icon>&nbsp;Save Class
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p style="font-weight: bold; font-size: 14px;">Class Info</p>
+        <hr>
+        <br>
+      </div>
+      
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="nameCtrl">
+          <mat-error *ngIf="nameCtrl.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Description</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="descriptionCtrl">
+          <mat-error *ngIf="descriptionCtrl.hasError('required')">
+            Description is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Add Payment</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-cancel" routerLink="/admin/employees/paid-salaries">
+        <mat-icon>clear</mat-icon>&nbsp;Cancel
+      </button>
+      <button class="btn btn-save" (click)="save()" [disabled]='!paySalaryForm.valid'>
+        <mat-icon>save_alt</mat-icon>&nbsp;Save
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p style="font-weight: bold; font-size: 14px;">Payment Info</p>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="Select employee" [formControl]="employeeFormCtl"
+            (mousedown)="openEmployeeDialog()">
+          <mat-icon matSuffix class="cursor-pointer">touch_app</mat-icon>
+          <mat-hint>Click the icon to select employee.</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Salary Amount</mat-label>
+          <input matInput placeholder="Salary Amount" [formControl]="salaryAmountFormCtl" readonly="readonly">
+          <mat-error *ngIf="salaryAmountFormCtl.hasError('required')">
+            Salary Amount is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Paid Amount</mat-label>
+          <input matInput placeholder="Paid Amount" [formControl]="paidAmountFormCtl">
+          <mat-error *ngIf="paidAmountFormCtl.hasError('required')">
+            Paid Amount is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Due Amount</mat-label>
+          <input matInput placeholder="Due Amount" [formControl]="dueAmountFormCtl" readonly="readonly">
+          <mat-error *ngIf="dueAmountFormCtl.hasError('required')">
+            Due Amount is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Payment Date</mat-label>
+          <input matInput [matDatepicker]="payDate" placeholder="Payment Date" [formControl]="payDateFormCtl">
+          <mat-datepicker-toggle matSuffix [for]="payDate"></mat-datepicker-toggle>
+          <mat-datepicker #payDate></mat-datepicker>
+          <mat-error *ngIf="payDateFormCtl.hasError('required')">
+            Payment Date is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+$font-roboto: Roboto;
+$banner: 20px;
+$title-sm: 15px;
+$title-md: 16px;
+$title-lg: 18px;
+$text: 15px;
+$text-sm: 12px;
+$banner-xl: 40px;
+
+.font-banner-xl {
+  font-size: $banner-xl;
+}
+
+.font-banner {
+  font-size: $banner;
+}
+
+.font-title-sm {
+  font-size: $title-sm;
+}
+
+.font-title-md {
+  font-size: $title-md;
+}
+
+.font-title-lg {
+  font-size: $title-lg;
+}
+
+.font-text {
+  font-size: $text;
+}
+
+.font-text-sm {
+  font-size: $text-sm;
+}
+
+.font-100 {
+  font-weight: 100;
+}
+
+.font-200 {
+  font-weight: 200;
+}
+.font-300 {
+  font-weight: 300;
+}
+
+.font-400 {
+  font-weight: 400;
+}
+.font-500 {
+  font-weight: 500;
+}
+
+.font-600 {
+  font-weight: 600;
+}
+.font-700 {
+  font-weight: 700;
+}
+
+.font-800 {
+  font-weight: 800;
+}
+
+.font-900 {
+  font-weight: 800;
+}
+
+.mat-cell,
+.mat-footer-cell,
+.mat-chip,
+label,
+.hcl-breadcrumb-item-active .hcl-link {
+  color: #3b4151;
+}

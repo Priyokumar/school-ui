@@ -1,0 +1,497 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Employee Details</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/employees">
+        <mat-icon class="white-icon">keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button class="btn btn-cancel" *ngIf="isSuperAdmin" (click)="delete()">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Delete
+      </button>
+      <button class="btn btn-edit" (click)="edit()">
+        <mat-icon class="white-icon">edit</mat-icon>&nbsp;Edit
+      </button>
+      <button class="btn btn-save" [routerLink]="['/admin/employees/create']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;Add New Employee
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" class="bg-white" *ngIf="employee">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">info</mat-icon>
+          <span style="font-size: 13px;">General Info</span>
+        </ng-template>
+
+        <div class="row pt-3">
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Basic Info</p>
+            <hr>
+          </div>
+
+          <div class="col-md-12 pb-2">
+            <div class="row">
+              <div class="col-md-2">
+                <app-file-upload type="image" bgButton="#029734" color="white" width="100" height="100"
+                  [imageSrc]="profilePicUrl" (onSelectFile)="onSelectFile($event,'PROFILE_PIC')"></app-file-upload>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>First name : {{employee.firstName}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>Middle name : {{employee.middleName}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>Last name : {{employee.lastName}}</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <p>Email : {{employee.email}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>Mobile No : {{employee.mobileNo}}</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <p>Status : {{employee.status}}</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <p>Date of birth : {{employee.dob}}</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <p>Joining Date : {{employee.joiningDate}}</p>
+                  </div>
+
+                  <div class="col-md-4" >
+                    <p>Employee Type : {{employee.employeeType}} </p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <p>Designation : {{employee.designation}}</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- ============== Personal Info ===================== -->
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Personal Info</p>
+            <hr>
+          </div>
+
+          <div class="col-md-6">
+            <p>Pan Card : {{employee.personalInfo?.panCard}}</p>
+          </div>
+
+          <div class="col-md-6">
+            <p>Aadhaar Number : {{employee.personalInfo?.aadharCard}}</p>
+          </div>
+
+          <div class="col-md-6">
+            <p>Voter ID : {{employee.personalInfo?.voterId}}</p>
+          </div>
+          <div class="col-md-6">
+            <p>Driving Licence : {{employee.personalInfo?.drivingLicence}}</p>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>contact_phone</mat-icon>
+          <span style="font-size: 13px;">Communication Address</span>
+        </ng-template>
+
+
+        <div class="row pt-3">
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Correspondent Address</p>
+            <hr>
+          </div>
+          <div class="col-md-4">
+            <p>First line : {{employee.correspondentAddress?.firstLine}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>Second line : {{employee.correspondentAddress?.secondLine}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>Country : {{employee.correspondentAddress?.country}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>State : {{employee.correspondentAddress?.state}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>District : {{employee.correspondentAddress?.district}}</p>
+          </div>
+          <div class="col-md-12">
+            <p>Same As Correspondance Address : {{employee.sameAsPermanentAddress ? 'Yes': 'No'}}</p>
+          </div>
+
+          <div class="row" *ngIf="!employee.sameAsPermanentAddress">
+            <div class="col-md-12">
+              <p style="font-weight: bold; font-size: 14px;">Permanent Address</p>
+              <hr>
+            </div>
+            <div class="col-md-4">
+              <p>First line : {{employee.permanentAddress?.firstLine}}</p>
+            </div>
+            <div class="col-md-4">
+              <p>Second line : {{employee.permanentAddress?.secondLine}}</p>
+            </div>
+            <div class="col-md-4">
+              <p>Country : {{employee.permanentAddress?.country}}</p>
+            </div>
+            <div class="col-md-4">
+              <p>State : {{employee.permanentAddress?.state}}</p>
+            </div>
+            <div class="col-md-4">
+              <p>District : {{employee.permanentAddress?.district}}</p>
+            </div>
+          </div>
+
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span style="font-size: 13px;">others</span>
+        </ng-template>
+        <div class="row pt-2">
+
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Highest Qualification</p>
+            <hr>
+          </div>
+          <div class="col-md-4">
+            <p>Qualification Name : {{employee.highestQualification?.name}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>Board / University : {{employee.highestQualification?.board}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>Institue / University : {{employee.highestQualification?.schoolInstitue}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>Start date : {{employee.highestQualification?.startYear}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Pass out Date : {{employee.highestQualification?.passOutYear}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Score (Percentage) : {{employee.highestQualification?.score}}</p>
+          </div>
+
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Last Employee History</p>
+            <hr>
+          </div>
+
+          <div class="col-md-4">
+            <p>Employer Name : {{employee.lastEmployeeHistory?.employerName}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Address : {{employee.lastEmployeeHistory?.address}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Start date : {{employee.lastEmployeeHistory?.startDate}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>End Date : {{employee.lastEmployeeHistory?.endDate}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Designation : {{employee.lastEmployeeHistory?.designation}}</p>
+          </div>
+        </div>
+        <div class="row pt-2">
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Documents</p>
+            <hr>
+          </div>
+        </div>
+      </mat-tab>
+
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span style="font-size: 13px;">Documents</span>
+        </ng-template>
+        <div class="row pt-2">
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Documents</p>
+            <hr>
+          </div>
+          <!-- Aadhaar Card -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">Aadhaar Card</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="aadhaarCardUrl">
+                    <span><a [href]="aadhaarCardUrl">Click here to download</a></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('AADHAAR_CARD')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!aadhaarCardUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'AADHAAR_CARD')" *ngIf="!aadhaarCardUrl"
+                      bgButton="#029734" color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!aadhaarCardUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('AADHAAR_CARD')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <!-- Pan card -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">Pan Card</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="panCardUrl">
+                    <span><a [href]="panCardUrl">Click here to download</a></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('PAN_CARD')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!panCardUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'PAN_CARD')" *ngIf="!panCardUrl"
+                      bgButton="#029734" color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!panCardUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('PAN_CARD')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <!-- Voter Card -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">Voter Card</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="voterIdUrl">
+                    <span><a [href]="voterIdUrl">Click here to download</a></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('VOTER_ID')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!voterIdUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'VOTER_ID')" *ngIf="!voterIdUrl"
+                      bgButton="#029734" color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!voterIdUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('VOTER_ID')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <!-- Driving License -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">Driving License</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="drivingLicenseUrl">
+                    <span><a [href]="drivingLicenseUrl">Click here to download</a></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('DRIVING_LICENSE')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!drivingLicenseUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'DRIVING_LICENSE')" *ngIf="!drivingLicenseUrl"
+                      bgButton="#029734" color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!drivingLicenseUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('DRIVING_LICENSE')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <!-- X Certificate -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">X Certificate</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="xCertUrl">
+                    <span><a [href]="xCertUrl">Click here to download</a></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('X_CERT')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!xCertUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'X_CERT')" *ngIf="!xCertUrl" bgButton="#029734"
+                      color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!xCertUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('X_CERT')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <!-- XII Certificate -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">XII Certificate</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="xIICertUrl">
+                    <span><a [href]="xIICertUrl">Click here to download</a></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('XII_CERT')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!xIICertUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'XII_CERT')" *ngIf="!xIICertUrl"
+                      bgButton="#029734" color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!xIICertUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('XII_CERT')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <!-- Graduation Certificate -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">Graduation Certificate</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="graduationCertUrl">
+                    <span><a [href]="graduationCertUrl">Click here to download</a></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('GRADUATION_CERT')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!graduationCertUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'GRADUATION_CERT')" *ngIf="!graduationCertUrl"
+                      bgButton="#029734" color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!graduationCertUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('GRADUATION_CERT')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <!-- Post Graduation Certificate -->
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <p class="pt-2">Post Graduation Certificate</p>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4" *ngIf="postGraduationCertUrl">
+                    <span><a [href]="postGraduationCertUrl">Click here to download</a> <span *ngIf="postGraduationCertFile">{{postGraduationCertFile.name}}</span></span>
+                    <span>
+                      <button mat-icon-button color="primary" (click)="editDoc('POST_GRADUATION_CERT')">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="col-md-5" *ngIf="!postGraduationCertUrl">
+                    <app-file-upload (onSelectFile)="onSelectFile($event,'POST_GRADUATION_CERT')"
+                      *ngIf="!postGraduationCertUrl" bgButton="#029734" color="white"></app-file-upload>
+                  </div>
+                  <div class="col-md-3" *ngIf="!postGraduationCertUrl">
+                    <button mat-icon-button color="primary" (click)="cancel('POST_GRADUATION_CERT')">
+                      <mat-icon style="color:#ee3f64">cancel</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+</div>

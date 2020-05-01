@@ -1,0 +1,142 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Admission Details</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/students/admissions">
+        <mat-icon class="white-icon">keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button *ngIf="isSuperAdmin" class="btn btn-cancel" (click)="delete()">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Delete
+      </button>
+      <button class="btn btn-edit" (click)="edit()">
+        <mat-icon class="white-icon">edit</mat-icon>&nbsp;Edit
+      </button>
+      <button class="btn btn-save" [routerLink]="['/admin/students/admissions/add']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;New Admission
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div class="bg-white 'pr-2','pl-2" *ngIf="admission">
+    <div class="row p-4">
+      <div class="col-md-12">
+        <div class="font-500 font-title-lg">Student Info</div>
+        <hr>
+      </div>
+      <div class="col-md-4">
+        <p>First name : {{admission.student?.firstName}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Middle name : {{admission.student?.middleName}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Last name : {{admission.student?.lastName}}</p>
+      </div>
+
+      <div class="col-md-4">
+        <p>Registration Number : {{admission.student?.registrationNo}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Registration Date : {{admission.student?.registrationDate}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Student Status : <span class="pl-2 pr-2 rounded font-white"  [ngClass]="{'bg-green': admission.student?.status === 'Active','bg-red':admission.student?.status === 'Inactive'}">{{admission.student?.status}}</span></p>
+      </div>
+      <div class="col-md-12"> 
+        <br>
+        <div class="font-500 font-title-lg">Admission Info</div>
+        <hr>
+      </div>
+      <div class="col-md-4">
+        <p>Admission Reference No : {{admission.admissionRefNo}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Admission Status : <span class="pl-2 pr-2 rounded font-white" [ngClass]="{'bg-green': admission.status === 'Admitted','bg-red':admission.status === 'Expired'}">{{admission.status}}</span></p>
+      </div>
+      <div class="col-md-4">
+        <p>Academic Year : {{admission.academicYear}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Admission Date : {{admission.admissionDate}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Admission For : {{admission.standard}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Admission Amount : {{admission.admissionAmount}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Paid Amount : {{admission.paidAmount}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Due Amount : {{admission.dueAmount}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Promise To Pay Date : {{admission.promiseToPayDate}}</p>
+      </div>
+      <div class="col-md-12 pb-5">
+        <br>
+        <div class="font-500 font-title-lg">Fees</div>
+        <hr>
+        <div class="no-shadow w-100">
+          <table mat-table [dataSource]="feesDataSource" matSort>
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+              <td style="padding-left: 25px !important;" mat-cell *matCellDef="let row; let i = index">{{i+1}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="feeRef">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref No.</th>
+              <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row)">{{row.feeRefNo}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ammount</th>
+              <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="exptdateOfPayment">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Expected Date Of Payment</th>
+              <td mat-cell *matCellDef="let row"> {{row.exptdateOfPayment}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actdateOfPayment">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Actual Date Of Payment</th>
+              <td mat-cell *matCellDef="let row"> {{row.actdateOfPayment}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="monthOf">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Month Of</th>
+              <td mat-cell *matCellDef="let row"> {{row.monthOf}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+              <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let row" class="text-right">
+                <button class="btn btn-save" *ngIf="row.status !== 'Paid'" (click)="payFee(row)">Pay</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="feeColumns;sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: feeColumns ; let i = index;">
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

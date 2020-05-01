@@ -1,0 +1,233 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Student Details</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/students">
+        <mat-icon class="white-icon">keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button class="btn btn-cancel" (click)="delete()" *ngIf="isSuperAdmin">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Delete
+      </button>
+      <button class="btn btn-edit" (click)="edit()">
+        <mat-icon class="white-icon">edit</mat-icon>&nbsp;Edit
+      </button>
+      <button class="btn btn-save" [routerLink]="['/admin/students/add']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;New Registration
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" *ngIf="student">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">info</mat-icon>
+          <span style="font-size: 13px;">General Info</span>
+        </ng-template>
+
+        <div class="row pt-3">
+
+          <!-- ============== Personal Info ===================== -->
+
+          <div class="row">
+            <div class="col-md-2">
+              <app-file-upload type="image" bgButton="#029734" color="white" width="100" height="100"
+                [imageSrc]="profilePicUrl" (onSelectFile)="onSelectFile($event)"></app-file-upload>
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="font-500 font-title-lg pb-1">Registration Info</div>
+                </div>
+                <div class="col-md-4">
+                  <p>Registration Number : {{student.registrationNo}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Registration Date : {{student.registrationDate}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Status : <span class="pl-2 pr-2 rounded font-white"
+                      [ngClass]="{'bg-green': student.status === 'Active','bg-red':student.status === 'Inactive'}">{{student.status}}</span>
+                  </p>
+                </div>
+
+                <div class="col-md-12">
+                  <br>
+                  <div class="font-500 font-title-lg pb-1">Student Info</div>
+                </div>
+                <div class="col-md-4">
+                  <p>First name : {{student.firstName}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Middle name : {{student.middleName}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Last name : {{student.lastName}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Gender : {{student.gender}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Blood Group : {{student.bloodGroup}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Religion : {{student.religion}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Community : {{student.community}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Nationality : {{student.nationality}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Class : {{student.standard}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Roll Number : {{student.rollNo?student.rollNo:'NA'}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Date of birth : {{student.dob}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Joining Date : {{student.joiningDate}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <br>
+
+
+
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">contact_phone</mat-icon>&nbsp;
+          <span style="font-size: 13px;">Address details</span>
+        </ng-template>
+        <div class="row pt-3">
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Correspondance Address</p>
+          </div>
+          <div class="col-md-4">
+            <p>First line : {{student.correspondentAddress?.firstLine}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Second line : {{student.correspondentAddress?.secondLine}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Country : {{student.correspondentAddress?.country}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>District : {{student.correspondentAddress?.district}}</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="!this.student.sameAsPermAddr">
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Permanent Address</p>
+          </div>
+          <div class="col-md-4">
+            <p>First line : {{student.permanentAddress?.firstLine}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Second line : {{student.permanentAddress?.secondLine}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Country : {{student.permanentAddress?.country}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>District : {{student.permanentAddress?.district}}</p>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>wc</mat-icon>
+          <span style="font-size: 13px;">Parent's and Guardian's Info</span>
+        </ng-template>
+
+        <div class="row pt-3">
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Father's details</p>
+          </div>
+          <div class="col-md-4">
+            <p>Father's Name : {{student.fatherInfo?.name}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Date of birth : {{student.fatherInfo?.dob}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Education Qualification : {{student.fatherInfo?.eduQualification}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Occupation : {{student.fatherInfo?.eduQualification}}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p>Annual Income : {{student.fatherInfo?.income  | currency:'INR'}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Contact No. : {{student.fatherInfo?.contactNo}}</p>
+          </div>
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Mother's details</p>
+          </div>
+          <div class="col-md-4">
+            <p>Mother's Name : {{student.motherInfo?.name}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Date of birth : {{student.motherInfo?.dob}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Education Qualification : {{student.motherInfo?.eduQualification}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Occupation : {{student.motherInfo?.eduQualification}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Annual Income : {{student.motherInfo?.income | currency:'INR'}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Contact No. : {{student.motherInfo?.contactNo}}</p>
+          </div>
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Guardian's details</p>
+          </div>
+          <div class="col-md-4">
+            <p>Guardian's Name : {{student.guardianInfo?.name}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Date of birth : {{student.guardianInfo?.dob}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Education Qualification : {{student.guardianInfo?.eduQualification}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Occupation : {{student.guardianInfo?.eduQualification}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Annual Income : {{student.guardianInfo?.income | currency:'INR'}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Contact No. : {{student.guardianInfo?.contactNo}}</p>
+          </div>
+
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+</div>

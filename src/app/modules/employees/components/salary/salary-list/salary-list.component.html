@@ -1,0 +1,53 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Employee Salaries</span>
+    </div>
+  </div>
+  <div class="row"> 
+    <!-- Employess -->
+    <div class="col-md-12 table-header mb-5">
+      <!-- Table -->
+      <div class="no-shadow w-100">
+        <table mat-table [dataSource]="employeeSalaryDataSource" matSort class="">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+            <td style="padding-left: 25px !important;" mat-cell *matCellDef="let row; let i = index">{{i+1}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class">{{row.employee?.firstName}}
+              {{row.employee?.middleName}} {{row.employee?.lastName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="designation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Desigination</th>
+            <td mat-cell *matCellDef="let row"> {{row.employee?.designation}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <td mat-cell *matCellDef="let row"> {{row.employee?.status}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="salary">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Salary</th>
+            <td mat-cell *matCellDef="let row"> {{row.salaryAmount}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="employeeSalaryColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: employeeSalaryColumns ; let i = index;" (click)="onClickRow(row.id)">
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

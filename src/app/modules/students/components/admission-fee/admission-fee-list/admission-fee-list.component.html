@@ -1,0 +1,82 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-4">
+      <span class="font-400 font-banner" style="line-height: 35px;">Admissions</span>
+    </div>
+    <div class="col-md-8 text-right">
+      <mat-form-field class="w-50">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        <mat-icon matSuffix>filter_list</mat-icon>
+      </mat-form-field>&nbsp;
+      <button class="btn btn-save" [routerLink]="['/admin/students/admissions/add']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;New Admission
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Employess -->
+    <div class="col-md-12 p-0 table-header">
+      <!-- Table -->
+      <div class="no-shadow w-100">
+        <table mat-table [dataSource]="admissionsDataSource" matSort>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">{{row.student?.firstName
+              +" "+row.student?.lastName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="registrationNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Registration No.</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)"> {{row.student?.registrationNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="studentStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Student Status</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">
+              <span class="pl-2 pr-2 rounded font-white"
+                [ngClass]="{'bg-green': row.student?.status === 'Active','bg-red':row.student?.status === 'Inactive'}">{{row.student?.status}}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="admissionStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Admission Status</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)"> 
+              <span class="pl-2 pr-2 rounded font-white"
+                [ngClass]="{'bg-green': row.status === 'Admitted','bg-red':row.status === 'Expired'}">{{row.status}}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Class">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Class</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)"> {{row.standard}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Admission Number">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Admission Number</th>
+            <td mat-cell *matCellDef="let row" class="name-class"> {{row.admissionRefNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" class="text-right">
+              <mat-icon *ngIf="isSuperAdmin" (click)="onDeleteRow(row.id)" style="color: firebrick; cursor: pointer;">delete</mat-icon> &nbsp;
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="admissionColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: admissionColumns ; let i = index;">
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[12, 20,30,40,50,60,70,80,90,100]" showFirstLastButtons></mat-paginator>
+        <div class="d-flex justify-content-center align-items-center" style="height: 40vh;"
+          *ngIf="admissions.length <= 0">
+          <div>
+            <h4 class="font-grey font-300">No admission to display.</h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

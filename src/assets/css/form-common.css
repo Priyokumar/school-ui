@@ -1,0 +1,25 @@
+/* Mat input */
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.5em 0 0.5em 0;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  top: 0.75em !important;
+}
+
+::ng-deep .mat-input-element {
+  line-height: 22px !important;
+}
+
+::ng-deep .mat-select-trigger {
+  height: 1.7em;
+}
+
+.form-min-height {
+  min-height: 70vh !important;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}

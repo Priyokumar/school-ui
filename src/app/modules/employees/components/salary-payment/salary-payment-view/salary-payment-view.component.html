@@ -1,0 +1,50 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Pay Salary</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/employees/paid-salaries">
+        <mat-icon>keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button class="btn btn-cancel" (click)="delete()">
+        <mat-icon>clear</mat-icon>&nbsp;Delete
+      </button>
+      <button class="btn btn-edit" (click)="edit()">
+        <mat-icon>edit</mat-icon>&nbsp;Edit
+      </button>
+      <button class="btn btn-save" [routerLink]="['/admin/employees/paid-salary-create']">
+        <mat-icon>add</mat-icon>&nbsp;Add Pay Salary
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" *ngIf="paySalary">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p style="font-weight: bold; font-size: 14px;">Pay Salary Info</p>
+        <hr>
+      </div>
+      <div class="col-md-4">
+        <p>Salary Amount : {{paySalary.employeeSalary?.salaryAmount}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Paid Amount : {{paySalary.paidAmount}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Due Amount : {{paySalary.dueAmount}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Payment Date : {{paySalary.payDate}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

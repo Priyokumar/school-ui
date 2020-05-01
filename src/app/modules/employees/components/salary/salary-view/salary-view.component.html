@@ -1,0 +1,81 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Employee Salary</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/employees/salaries">
+        <mat-icon>keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button class="btn btn-save" (click)="update()" *ngIf="!updateMode">
+        <mat-icon>add</mat-icon>&nbsp;Update Salary Amount
+      </button>
+      <button class="btn btn-save" (click)="updateSalaryAmount()" *ngIf="updateMode">
+        <mat-icon>add</mat-icon>&nbsp;Update
+      </button>
+      <button class="btn btn-cancel" (click)="cancel()" *ngIf="updateMode">
+        <mat-icon>clear</mat-icon>&nbsp;Cancel
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" *ngIf="empSalary">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p style="font-weight: bold; font-size: 14px;">Employee Info</p>
+        <hr>
+      </div>
+      <div class="col-md-12 pb-3">
+        <div class="row">
+          <div class="col-md-2">
+            <img [src]="imageUrl" height="150" width="150" class="img-thumbnail" alt="Cinque Terre">
+          </div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-4">
+                <p>First Name : {{empSalary.employee?.firstName}}</p>
+              </div>
+              <div class="col-md-4">
+                <p>Middle Name : {{empSalary.employee?.middleName}}</p>
+              </div>
+              <div class="col-md-4">
+                <p>Last Name : {{empSalary.employee?.lastName}}</p>
+              </div>
+              <div class="col-md-4">
+                <p>Status : {{empSalary.employee?.status}}</p>
+              </div>
+              <div class="col-md-4">
+                <p>Designation : {{empSalary.employee?.designation}}</p>
+              </div>
+
+              <div class="col-md-12">
+                <p style="font-weight: bold; font-size: 14px;">Salary Info</p>
+                <hr>
+              </div>
+              <div class="col-md-4" *ngIf="!updateMode">
+                <p>Salary Amount : {{empSalary.salaryAmount}}</p>
+              </div>
+              <div class="col-md-4" *ngIf="updateMode">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Salary Amount</mat-label>
+                  <input matInput placeholder="Salary Amount" [formControl]="salaryAmountFormCtrl">
+                  <mat-error *ngIf="salaryAmountFormCtrl.hasError('required')">
+                    Salary Amount is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

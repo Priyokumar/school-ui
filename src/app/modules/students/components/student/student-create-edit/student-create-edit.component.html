@@ -1,0 +1,578 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner"
+        style="line-height: 35px;">{{studId ? 'Update Student':'New Registration'}}</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-cancel" routerLink="/admin/students">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Cancel
+      </button>
+      <button class="btn btn-save" (click)="save()" [disabled]='!studentForm.valid'>
+        <mat-icon class="white-icon">save_alt</mat-icon>&nbsp;{{studId ? 'Update':'Save'}}
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">info</mat-icon>
+          <span style="font-size: 13px;">General Info</span>
+        </ng-template>
+
+        <div class="row pt-3">
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Student Info</p>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="firstNameFormCtl">
+              <mat-error *ngIf="firstNameFormCtl.hasError('required')">
+                First name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Middle name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="middleNameFormCtl">
+              <mat-error *ngIf="middleNameFormCtl.hasError('required')">
+                Middle name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Last name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="lastNameFormCtl">
+              <mat-error *ngIf="lastNameFormCtl.hasError('required')">
+                Last name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="studId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Registration Number</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="registrationNoFormCtl">
+              <mat-error *ngIf="registrationNoFormCtl.hasError('required')">
+                Registration Number is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="studId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Registration Date</mat-label>
+              <input matInput [matDatepicker]="regDate" placeholder="mm/dd/yyyy"
+                [formControl]="registrationDateFormCtl">
+              <mat-datepicker-toggle matSuffix [for]="regDate"></mat-datepicker-toggle>
+              <mat-datepicker #regDate></mat-datepicker>
+              <mat-error *ngIf="registrationDateFormCtl.hasError('required')">
+                Registration Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="studId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Status</mat-label>
+              <mat-select placeholder="Status" [formControl]="statusFormCtl">
+                <mat-option *ngFor="let option of statuses" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="statusFormCtl.hasError('required')">
+                Status is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="studId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Class</mat-label>
+              <mat-select placeholder="Status" [formControl]="standardFormCtl">
+                <mat-option *ngFor="let option of standards" [value]="option.name">
+                  {{option.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="standardFormCtl.hasError('required')">
+                Status is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Gender</mat-label>
+              <mat-select placeholder="Gender" [formControl]="genderFormCtl">
+                <mat-option *ngFor="let option of genders" [value]="option.value">
+                  {{option.value}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="genderFormCtl.hasError('required')">
+                Gender is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Blood group</mat-label>
+              <mat-select placeholder="Blood group" [formControl]="bloodGroupFormCtl">
+                <mat-option *ngFor="let option of bloodGroups" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="bloodGroupFormCtl.hasError('required')">
+                Blood group is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Religion</mat-label>
+              <mat-select placeholder="Religion" [formControl]="religionFormCtl">
+                <mat-option *ngFor="let option of religions" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="religionFormCtl.hasError('required')">
+                Religion is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nationality</mat-label>
+              <input matInput placeholder="Nationality" [formControl]="nationalityFormCtl">
+              <mat-error *ngIf="nationalityFormCtl.hasError('required')">
+                Nationality is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Community</mat-label>
+              <mat-select placeholder="Community" [formControl]="communityFormCtl">
+                <mat-option *ngFor="let option of communities" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="communityFormCtl.hasError('required')">
+                Community is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4" *ngIf="studId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Roll Number</mat-label>
+              <input type="number" matInput placeholder="Placeholder" [formControl]="rollNoFormCtl">
+              <mat-error *ngIf="rollNoFormCtl.hasError('required')">
+                Roll Number is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="dobt" placeholder="mm/dd/yyyy" [formControl]="dobFormCtl" readonly>
+              <mat-datepicker-toggle matSuffix [for]="dobt"></mat-datepicker-toggle>
+              <mat-datepicker #dobt></mat-datepicker>
+              <mat-error *ngIf="dobFormCtl.hasError('required')">
+                Date of birth is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Joining Date</mat-label>
+              <input matInput [matDatepicker]="joiningDatet" placeholder="mm/dd/yyyy" [formControl]="joiningDateFormCtl"
+                readonly>
+              <mat-datepicker-toggle matSuffix [for]="joiningDatet"></mat-datepicker-toggle>
+              <mat-datepicker #joiningDatet></mat-datepicker>
+              <mat-error *ngIf="joiningDateFormCtl.hasError('required')">
+                Joining Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">contact_mail</mat-icon>&nbsp;
+          <span style="font-size: 13px;">Address details</span>
+        </ng-template>
+
+        <div class="row pt-3">
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Correspondent Address</p>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First line</mat-label>
+              <input matInput placeholder="First line" [formControl]="corrFirstLineFormCtl">
+              <mat-error *ngIf="corrFirstLineFormCtl.hasError('required')">
+                First line is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Second line</mat-label>
+              <input matInput placeholder="Second line" [formControl]="corrSecondLineFormCtl">
+              <mat-error *ngIf="corrSecondLineFormCtl.hasError('required')">
+                Second line is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Country</mat-label>
+              <input matInput placeholder="Country" [formControl]="corrCountryFormCtl">
+              <mat-error *ngIf="corrCountryFormCtl.hasError('required')">
+                Country is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>State</mat-label>
+              <input matInput placeholder="State" [formControl]="corrStateFormCtl">
+              <mat-error *ngIf="corrStateFormCtl.hasError('required')">
+                State is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>District</mat-label>
+              <mat-select placeholder="District" [formControl]="corrDistrictFormCtl">
+                <mat-option *ngFor="let option of districts" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="corrDistrictFormCtl.hasError('required')">
+                District is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12 pb-2">
+            <div><label>Same as permanent address</label></div>
+            <mat-radio-group [formControl]="sameAsPermAddrFormCtl">
+              <mat-radio-button *ngFor="let option of yesNo" [value]="option.value">
+                {{option.key}} &nbsp;
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="row" *ngIf="sameAsPermAddrFormCtl.value === false">
+            <div class="col-md-12">
+              <p style="font-weight: bold; font-size: 14px;">Permanent Address</p>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>First line</mat-label>
+                <input matInput placeholder="First line" [formControl]="firstLineFormCtl">
+                <mat-error *ngIf="firstLineFormCtl.hasError('required')">
+                  First line is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Second line</mat-label>
+                <input matInput placeholder="Second line" [formControl]="secondLineFormCtl">
+                <mat-error *ngIf="secondLineFormCtl.hasError('required')">
+                  Second line is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Country</mat-label>
+                <input matInput placeholder="Country" [formControl]="countryFormCtl">
+                <mat-error *ngIf="countryFormCtl.hasError('required')">
+                  Country is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>State</mat-label>
+                <input matInput placeholder="State" [formControl]="stateFormCtl">
+                <mat-error *ngIf="stateFormCtl.hasError('required')">
+                  State is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>District</mat-label>
+                <mat-select placeholder="District" [formControl]="districtFormCtl">
+                  <mat-option *ngFor="let option of districts" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="districtFormCtl.hasError('required')">
+                  District is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span style="font-size: 13px;">Parent's and Guardian's Info</span>
+        </ng-template>
+
+        <div class="row pt-3">
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Father's details</p>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Father's Name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="fatherNameFormCtl">
+              <mat-error *ngIf="fatherNameFormCtl.hasError('required')">
+                Father's Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="fdobt" placeholder="mm/dd/yyyy" [formControl]="fatherDobFormCtl"
+                readonly>
+              <mat-datepicker-toggle matSuffix [for]="fdobt"></mat-datepicker-toggle>
+              <mat-datepicker #fdobt></mat-datepicker>
+              <mat-error *ngIf="fatherDobFormCtl.hasError('required')">
+                Date of birth is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Education Qualification</mat-label>
+              <input matInput placeholder="Education Qualification" [formControl]="fatherEduQualiFormCtl">
+              <mat-error *ngIf="fatherEduQualiFormCtl.hasError('required')">
+                Education Qualification is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Occupation</mat-label>
+              <input matInput placeholder="Occupation" [formControl]="fatherOccupationFormCtl">
+              <mat-error *ngIf="fatherOccupationFormCtl.hasError('required')">
+                Occupation is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Annual Income</mat-label>
+              <input matInput type="number" placeholder="Annual Income" [formControl]="fatherAnnualIncomeFormCtl">
+              <mat-error *ngIf="fatherAnnualIncomeFormCtl.hasError('required')">
+                Annual Income is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Aadhaar No</mat-label>
+              <input matInput placeholder="Aadhaar No" [formControl]="fatherAadhaarNoFormCtl">
+              <mat-error *ngIf="fatherAadhaarNoFormCtl.hasError('required')">
+                Aadhaar No is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Contact No.</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="fatherContactNoFormCtl">
+              <mat-error *ngIf="fatherContactNoFormCtl.hasError('required')">
+                Contact No. is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <!-- Mother's details -->
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Mother's details</p>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Mother's Name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="motherNameFormCtl">
+              <mat-error *ngIf="motherNameFormCtl.hasError('required')">
+                Mother's Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="mdobt" placeholder="mm/dd/yyyy" [formControl]="motherDobFormCtl"
+                readonly>
+              <mat-datepicker-toggle matSuffix [for]="mdobt"></mat-datepicker-toggle>
+              <mat-datepicker #mdobt></mat-datepicker>
+              <mat-error *ngIf="motherDobFormCtl.hasError('required')">
+                Date of birth is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Education Qualification</mat-label>
+              <input matInput placeholder="Education Qualification" [formControl]="motherEduQualiFormCtl">
+              <mat-error *ngIf="motherEduQualiFormCtl.hasError('required')">
+                Education Qualification is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Occupation</mat-label>
+              <input matInput placeholder="Occupation" [formControl]="motherOccupationFormCtl">
+              <mat-error *ngIf="motherOccupationFormCtl.hasError('required')">
+                Occupation is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Annual Income</mat-label>
+              <input matInput type="number" placeholder="Annual Income" [formControl]="motherAnnualIncomeFormCtl">
+              <mat-error *ngIf="motherAnnualIncomeFormCtl.hasError('required')">
+                Annual Income is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!--  <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Aadhaar No</mat-label>
+              <input matInput placeholder="Aadhaar No" [formControl]="motherAadhaarNoFormCtl">
+              <mat-error *ngIf="motherAadhaarNoFormCtl.hasError('required')">
+                Aadhaar No is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Contact No.</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="motherContactNoFormCtl">
+              <mat-error *ngIf="motherContactNoFormCtl.hasError('required')">
+                Contact No. is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Guardian's details -->
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Guardian's details</p>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Guardian's Name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="guardianNameFormCtl">
+              <mat-error *ngIf="guardianNameFormCtl.hasError('required')">
+                Guardian's Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="gdobt" placeholder="mm/dd/yyyy" [formControl]="guardianDobFormCtl"
+                readonly>
+              <mat-datepicker-toggle matSuffix [for]="gdobt"></mat-datepicker-toggle>
+              <mat-datepicker #gdobt></mat-datepicker>
+              <mat-error *ngIf="guardianDobFormCtl.hasError('required')">
+                Date of birth is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Education Qualification</mat-label>
+              <input matInput placeholder="Education Qualification" [formControl]="guardianEduQualiFormCtl">
+              <mat-error *ngIf="guardianEduQualiFormCtl.hasError('required')">
+                Education Qualification is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Occupation</mat-label>
+              <input matInput placeholder="Occupation" [formControl]="gaurdianOccupationFormCtl">
+              <mat-error *ngIf="gaurdianOccupationFormCtl.hasError('required')">
+                Occupation is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Annual Income</mat-label>
+              <input type="number" matInput placeholder="Annual Income" [formControl]="guardianAnnualIncomeFormCtl">
+              <mat-error *ngIf="guardianAnnualIncomeFormCtl.hasError('required')">
+                Annual Income is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!--  <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Aadhaar No</mat-label>
+              <input matInput placeholder="Aadhaar No" [formControl]="gaurdianAadhaarNoFormCtl">
+              <mat-error *ngIf="gaurdianAadhaarNoFormCtl.hasError('required')">
+                Aadhaar No is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Contact No.</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="guardianContactNoFormCtl">
+              <mat-error *ngIf="guardianContactNoFormCtl.hasError('required')">
+                Contact No. is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+</div>

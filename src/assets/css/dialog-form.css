@@ -1,0 +1,13 @@
+.dialg-form-header{
+    background-color: #7b1fa2;
+    text-align: center;
+    color: #ffffff;
+    padding: 1em;
+}
+
+.dialg-form-footer{
+    background-color: #7b1fa2;
+    text-align: right;
+    color: #ffffff;
+    padding: .5em;
+}

@@ -1,0 +1,23 @@
+<div>
+  <div *ngIf="type==='image'" style="text-align: center">
+    <img [src]="imageSrc" width="100%" class="img-thumbnail" (click)="imagePreview()"
+      style="cursor: pointer">
+  </div>
+  <div>
+    <label class="btn w-100" [ngStyle]='{"background": bgButton,"margin-top":"5px","color": color}' *ngIf="type==='image'">
+      Upload Photo<input type="file" (change)="selectFile($event)" style="display: none;">
+    </label>
+  </div>
+
+  <label class="btn" [ngStyle]='{"background": bgButton,"margin-top":"5px","color": color}' *ngIf="type !='image'">
+    <span>Upload <mat-icon>folder_open</mat-icon></span>
+    <input type="file" (change)="selectFile($event)" style="display: none;">
+  </label>&nbsp;
+  <mat-form-field class="w-20 mt-2" *ngIf="type !='image'">
+    <mat-label>File</mat-label>
+    <input matInput placeholder="Placeholder" [formControl]="fileFctrl" readonly="readonly">
+    <mat-error *ngIf="fileFctrl.hasError('required')">
+      File is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+</div>

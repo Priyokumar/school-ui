@@ -1,0 +1,44 @@
+.emp-card:hover {
+  background: paleturquoise;
+  cursor: pointer;
+}
+
+.emp-card-header {
+  background: #e9e7e7;
+  padding: 10px;
+}
+
+.emp-detail {
+  padding-bottom: 5px;
+}
+
+.emp-row {
+  padding-bottom: 20px !important;
+}
+
+.no-data {
+  height: 50vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-class {
+  text-transform: capitalize;
+}
+
+.name-class:hover {
+  color: rgb(4, 102, 182);
+  text-transform: capitalize;
+}
+
+tr:hover {
+  cursor: pointer;
+  background-color: rgb(243, 243, 243);
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0 0.75em 0 !important;
+}

@@ -1,0 +1,55 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Income Details</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/incomes-expenses/incomes">
+        <mat-icon>keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button class="btn btn-cancel" (click)="delete()">
+        <mat-icon>clear</mat-icon>&nbsp;Delete
+      </button>
+      <button class="btn btn-edit" (click)="edit()">
+        <mat-icon>edit</mat-icon>&nbsp;Edit
+      </button>
+      <button class="btn btn-save" [routerLink]="['/admin/incomes-expenses/incomes/add']">
+        <mat-icon>add</mat-icon>&nbsp;New Income
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" *ngIf="income">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p style="font-weight: bold; font-size: 14px;">Income Info</p>
+      </div>
+      <div class="col-md-4">
+        <p>Reference No. : {{income.refNo}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Amount : {{income.amount}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Income Type : {{income.incomeType}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Income Details : {{income.incomeDetails}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Income Date : {{income.comments}}</p>
+      </div>
+      <div class="col-md-4">
+        <p>Comments : {{income.incomeDate}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

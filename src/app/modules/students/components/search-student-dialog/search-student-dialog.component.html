@@ -1,0 +1,64 @@
+<mat-progress-bar mode="indeterminate" *ngIf="fetchingStudents"></mat-progress-bar>
+<div class="shadow-sm form-min-height">
+  <div class="d-flex justify-content-between align-items-center p-2" style="background-color: #dddddd">
+    <div>
+      <span class="font-banner pl-2">Students</span>
+    </div>
+    <div class="w-30 d-flex justify-content-end">
+      <mat-form-field class="w-100">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        <mat-icon matSuffix>filter_list</mat-icon>
+      </mat-form-field>&nbsp;
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 p-0 table-header">
+      <div class="no-shadow w-100">      
+        <table mat-table [dataSource]="studentsDataSource" matSort>
+
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class">{{row.firstName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="middleName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Middle Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class">{{row.lastName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class">{{row.lastName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="registrationNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Registration No.</th>
+            <td mat-cell *matCellDef="let row"> {{row.registrationNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="registrationDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Registration Date</th>
+            <td mat-cell *matCellDef="let row"> {{row.registrationDate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="registrationStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="studentsColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: studentsColumns" (click)="select(row)">
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20,30,40,50,60,70,80,90,100]" showFirstLastButtons></mat-paginator>
+        <div class="d-flex justify-content-center align-items-center" style="height: 40vh;"
+          *ngIf="students.length <= 0">
+          <div>
+            <h4 class="font-grey font-300">No student to display.</h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

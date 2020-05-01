@@ -1,0 +1,14 @@
+
+.name-class {
+  text-transform: capitalize;
+}
+
+.name-class:hover {
+  color: rgb(4, 102, 182);
+  text-transform: capitalize;
+}
+
+tr:hover {
+  cursor: pointer;
+  background-color: rgb(243, 243, 243);
+}

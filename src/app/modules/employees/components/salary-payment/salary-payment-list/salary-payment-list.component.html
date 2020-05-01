@@ -1,0 +1,69 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Salary Payment</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" [routerLink]="['/admin/employees/paid-salary-create']">
+        <mat-icon>add</mat-icon>&nbsp;Add Payment
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Employess -->
+    <div class="col-md-12 table-header mb-5">
+      <!-- Table -->
+      <div class="no-shadow w-100">
+        <table mat-table [dataSource]="paySalaryDataSource" matSort class="">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+            <td style="padding-left: 25px !important;" mat-cell *matCellDef="let row; let i = index">{{i+1}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">{{getName(row)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="payDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Pay Date</th>
+            <td mat-cell *matCellDef="let row" class="name-class">{{row.payDate}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="paidAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Paid Amount</th>
+            <td mat-cell *matCellDef="let row"> {{row.paidAmount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dueAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Amount</th>
+            <td mat-cell *matCellDef="let row"> {{row.dueAmount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="salaryAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Salary Amount</th>
+            <td mat-cell *matCellDef="let row">{{row.employeeSalary.salaryAmount}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" class="text-right" (click)="onDelete(row.id)">
+              <mat-icon style="color: firebrick; cursor: pointer;">clear</mat-icon> &nbsp;
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="paySalaryColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: paySalaryColumns ; let i = index;">
+          </tr>
+        </table>
+        <div class="d-flex justify-content-center align-items-center" style="height: 40vh;" *ngIf="errorMessage">
+          <div>
+            <h4 class="font-grey font-300">{{errorMessage}}</h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

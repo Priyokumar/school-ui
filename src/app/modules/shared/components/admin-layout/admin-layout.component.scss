@@ -1,0 +1,156 @@
+/*******************************************************************************
+
+ *(c) Copyright HCL Technologies Ltd. 2019 All rights reserved.
+
+*******************************************************************************/
+@import "../../../../../assets/scss/color.scss";
+@import "../../../../../assets/scss/font.scss";
+
+.body-layout{
+  margin-top: 46px;
+}
+
+mat-sidenav-container,
+mat-sidenav,
+mat-sidenav-content {
+  min-height: 100vh;
+  background-color: $light-grey;
+}
+
+.mat-drawer-content {
+  overflow: hidden !important;
+}
+
+mat-sidenav { 
+  width: 240px;
+}
+
+.upper-case {
+  text-transform: uppercase;
+}
+
+.header-container {
+  height: 50px;
+}
+
+.mat-drawer-side {
+  border-right: none !important;
+}
+
+.apps-list {
+  padding-left: 25px;
+}
+
+.user-menu {
+  padding-left: 5px !important;
+}
+
+.user-list {
+  line-height: 35px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.mat-drawer-inner-container {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+.mat-list-item-content {
+  font-size: $text;
+}
+
+.mat-expansion-panel-header {
+  font-size: $text;
+}
+
+.mat-cell,
+.mat-footer-cell {
+  font-size: $text !important;
+}
+
+.mat-expansion-panel {
+  border-radius: 0;
+  background: $secondary;
+}
+
+.mat-drawer-side {
+  border-right: solid 1px rgba(0, 0, 0, 0.05);
+}
+
+.mat-icon {
+  font-size: $banner !important;
+  color: $black2;
+}
+
+ .mat-expansion-indicator::after {
+  color: $black1 !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+
+.mat-list-base {
+  padding-top: 0;
+}
+
+.mat-list-base .mat-list-item,
+.mat-list-base .mat-list-option {
+  height: 34px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.links-btn {
+  padding-left: 0;
+  padding-right: 0;
+  padding: 2px;
+}
+
+.mat-expansion-panel-header-title {
+  color: $black2 !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+
+.mat-list-base .mat-list-item {
+  color: $black2 !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+
+.mat-list-item-content {
+  text-transform: capitalize;
+  padding: 0 12px !important;
+}
+
+a,
+img:focus,
+.side-nav-link {
+  outline: none;
+}
+
+.mat-nav-list a,
+.side-nav-link {
+  line-height: 35px;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 12px !important;
+}
+
+.fixed-nav-content {
+  top: 50px;
+  position: fixed;
+  overflow-x: auto;
+  height: 100vh;
+  width: 240px;
+  background: $secondary;
+}

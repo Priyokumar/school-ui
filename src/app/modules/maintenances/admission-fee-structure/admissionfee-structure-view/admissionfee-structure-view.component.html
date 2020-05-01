@@ -1,0 +1,78 @@
+<div class="mat-elevation-z2 form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Admission Fee Details</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" routerLink="/admin/maintenances/admission-fees">
+        <mat-icon class="white-icon">keyboard_arrow_left</mat-icon>&nbsp;Back
+      </button>
+      <button class="btn btn-cancel" (click)="delete()">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Delete
+      </button>
+      <button class="btn btn-edit" (click)="edit()">
+        <mat-icon class="white-icon">edit</mat-icon>&nbsp;Edit
+      </button>
+      <button class="btn btn-save" [routerLink]="['/admin/maintenances/admission-fees/add']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;New Admission Fee Structure
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" class="bg-white" *ngIf="admFeeStructure">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p class="font-500 font-title-md">Admission Fee Structure Info</p>
+      </div>
+      <div class="col-md-4">
+        <p>Year : {{admFeeStructure.year}}</p>
+      </div>
+
+      <div class="col-md-12 table-header p-0 mb-5">
+        <div class="row p-2">
+          <div class="col-md-6">
+            <span class="font-500 font-title-md">Admission Fee Structure</span>
+          </div>
+        </div>
+        <div class="no-shadow w-100">
+          <table mat-table [dataSource]="admFeeStructureDataSource" matSort>
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+              <td style="padding-left: 25px !important;" mat-cell *matCellDef="let row; let i = index">{{i+1}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="standard">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Standard</th>
+              <td mat-cell *matCellDef="let row" class="name-class">
+                {{row.standard}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="feeAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Fee Amount</th>
+              <td mat-cell *matCellDef="let row" class="name-class">{{row.feeAmount}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="admissionAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Admission Amount</th>
+              <td mat-cell *matCellDef="let row" class="name-class">{{row.admissionAmount}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="admFeeStructureColumns;sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: admFeeStructureColumns ; let i = index;">
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

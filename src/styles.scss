@@ -1,0 +1,137 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap.scss";
+@import "./assets/scss/color.scss";
+@import "./assets/scss/font.scss";
+@import "./assets/css/form-common.css";
+@import "./assets/css/dialog-form.css";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: $font-roboto;
+  font-size: $text;
+  font-weight: 400;
+  color: $black1;
+}
+.no-text-deco {
+  text-decoration: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+th {
+  font-size: $text !important;
+}
+
+.row {
+  margin: 0;
+}
+
+.main {
+  min-height: 80vh;
+}
+
+.display-none {
+  display: none !important;
+}
+
+.letter-spacing-1 {
+  letter-spacing: 1px;
+}
+
+.letter-spacing-2 {
+  letter-spacing: 2px;
+}
+
+.letter-spacing-3 {
+  letter-spacing: 3px;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+.btn {
+  color: #ffffff;
+  font-size: 12px;
+  padding: 0.2rem 0.75rem;
+  margin: 3px 2px;
+  height: 28px;
+}
+
+.btn-save {
+  background: #029734;
+}
+
+.btn-edit {
+  background: #4696d2;
+}
+
+.btn-cancel {
+  background: #ee3f64;
+}
+
+.z-index5 {
+  z-index: 5;
+}
+
+// Mat
+.mat-icon {
+  vertical-align: middle !important;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+.mat-spinner-vertical-spacer {
+  height: 4px;
+}
+
+// Important
+.mat-form-field-appearance-legacy.mat-form-field-can-float
+  .mat-input-server:focus
+  + .mat-form-field-label-wrapper
+  .mat-form-field-label,
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-1.6em) scale(0.75) perspective(100px) translateZ(0.008px) !important;
+  -ms-transform: translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.001px) !important;
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  color: #5f5f5f !important;
+}
+
+.mat-form-field {
+  line-height: 2;
+}
+
+table.mat-table {
+  width: 100%;
+}
+
+.success-snackbar {
+  background: rgb(51, 112, 10);
+}
+
+.info-snackbar {
+  background: #2196f3;
+}
+
+.warning-snackbar {
+  background: rgb(248, 162, 3);
+}
+
+.danger-snackbar {
+  background: rgb(255, 72, 72);
+}
+
+.white-icon{
+  color: whitesmoke !important;
+}

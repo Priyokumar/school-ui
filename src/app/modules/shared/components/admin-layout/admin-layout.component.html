@@ -1,0 +1,56 @@
+<div>
+    <mat-sidenav-container fxFlexFill>
+        <mat-sidenav #sidenav class="" opened="true" mode="side">
+            <div class="fixed-nav-content pt-4">
+                <div class="">
+                    <div class="text-center font-black2">
+                        <h4>Pesl Admin</h4>
+                        <p class="letter-spacing-2 font-text-sm">MANAGE YOUR SCHOOL</p>
+                    </div>
+                    <br>
+                    <br>
+                    <div *ngFor="let sideNav of sideNavs">
+                        <mat-nav-list *ngIf="sideNav.hasSubmenu === false">
+                            <a mat-list-item [routerLink]="[sideNav.path]" routerLinkActive='active-link'>
+                                <mat-icon>{{sideNav.icon}}</mat-icon>&nbsp;&nbsp;&nbsp; <span
+                                    class="links-btn font-title-sm cursor-pointer">{{sideNav.title}}</span>
+                            </a>
+                        </mat-nav-list>
+
+                        <mat-accordion multi="true" [displayMode]="'flat'" *ngIf="sideNav.hasSubmenu === true">
+                            <mat-expansion-panel class="no-shadow" expanded="false">
+                                <mat-expansion-panel-header fxLayout="row" [expandedHeight]="'42px'"
+                                    [collapsedHeight]="'42px'">
+                                    <mat-panel-title>
+                                        <mat-icon>{{sideNav.icon}}</mat-icon><span
+                                            class="links-btn font-title-sm cursor-pointer">&nbsp;&nbsp;&nbsp;{{sideNav.title}}</span>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-nav-list class="ml-0" dense>
+                                    <mat-list-item *ngFor="let submenu of sideNav.submenu">
+                                        <a class="w-100 h-100 side-nav-link" *ngIf="!submenu.isExternalUrl"
+                                            [routerLink]="[submenu.path]" routerLinkActive='active-link'>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;{{submenu.title}}
+                                        </a>
+                                        <a class="w-100 h-100" *ngIf="submenu.isExternalUrl" [href]="submenu.path"
+                                            target="_blank">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<span>{{submenu.title}}</span>&nbsp;<mat-icon>
+                                                open_in_new</mat-icon>
+                                        </a>
+                                    </mat-list-item>
+                                </mat-nav-list>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div class="pl-2 pr-2 pt-1 body-layout">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+</div>

@@ -1,0 +1,68 @@
+<div class="bg-white main h-100">
+  <div class="row p-1">
+    <div class="col-md-6">
+      <h3 style="font-size: 14px; line-height: 35px;">Attendance</h3>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" (click)="save()">
+        <mat-icon>save_alt</mat-icon>&nbsp;Save
+      </button>&nbsp;
+      <button class="btn btn-save" (click)="save()">
+        <mat-icon>save_alt</mat-icon>&nbsp;Submit
+      </button>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-end justify-content-between p-4">
+    <div>
+      <div *ngIf="employee" class="d-flex align-items-center">
+        <b>Employee: {{employee.firstName}} {{employee.middleName}} {{employee.lastName}}</b>&nbsp;
+        <button class="btn btn-save" (click)="selectEmployee()">
+          Change Employee
+        </button>
+      </div>
+      <div *ngIf="!employee" class="d-flex align-items-center text-warning">
+        <div class="notification-warn">
+          <mat-icon class="text-warning">error_outline</mat-icon> <b>No employee is selected!</b>
+        </div>
+        &nbsp;
+        <button class="btn btn-save" (click)="selectEmployee()">
+          Select Employee
+        </button>
+      </div>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" [formControl]="currentDateFctl" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>&nbsp;
+    </div>
+  </div>
+  <div class="pl-4 pr-4" *ngIf="employee">
+    <table class="w-100 table table-bordered">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>Time In</th>
+          <th>Time Out</th>
+          <th>Total Time</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let attendance of attendances" app-employee-attendance-single-form [userData]="userData"
+          [attendance]="attendance">
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <button class="mr-5 change-btn" (click)="previous()">Previous</button>
+      <button class="change-btn" (click)="next()">Next</button>
+    </div>
+  </div>
+  <div *ngIf="!employee" class="d-flex justify-content-center align-items-center message">
+    <mat-icon class="message-icon">report</mat-icon>&nbsp;&nbsp; <span>Please select an employee to proceed.</span>
+  </div>
+</div>

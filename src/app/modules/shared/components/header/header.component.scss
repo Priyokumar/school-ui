@@ -1,0 +1,32 @@
+$height: 45px;
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  height: $height !important;
+}
+.mat-toolbar-multiple-rows {
+  min-height: $height !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-icon {
+  font-size: 20px !important;
+}
+
+.layer1 {
+  background-color: #dcc7aa !important;
+  width: 247px;
+  z-index: 1;
+  height: 45px;
+}
+
+.layer {
+  position: fixed;
+  top: 0;
+  height: 45px !important;
+  z-index: 2;
+  width: 100%;
+}

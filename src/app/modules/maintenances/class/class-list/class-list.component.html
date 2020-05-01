@@ -1,0 +1,26 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-500 font-title-lg">Classes</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" [routerLink]="['/admin/maintenances/classes/add']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;Add ew class
+      </button>
+    </div>
+  </div>
+
+
+  <div class="row p-3">
+    <div class="col-md-2 p-3 cursor-pointer" *ngFor="let standard of standards">
+      <div [routerLink]="'/admin/maintenances/classes/'+ standard.id+'/view'" class="shadow-sm standard-card d-flex justify-content-center align-items-center pt-3 pb-3">
+        <h5 class="">{{standard.name}}</h5>
+      </div>
+    </div>
+    <div class="col-md-12" *ngIf="standards.length <= 0">
+      <div style="height: 40vh;" class="d-flex justify-content-center align-items-end pt-3 pb-3">
+        <div class="display-4" >No data to display.</div>
+      </div>
+    </div>
+  </div>
+</div>

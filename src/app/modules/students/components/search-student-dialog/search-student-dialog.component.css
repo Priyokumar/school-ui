@@ -1,0 +1,15 @@
+.dialg-header{
+    background-image: linear-gradient(to right, #065c37, #09713f, #138747, #229d4c, #33b451);
+    padding: 5px;
+    color: #ffffff;
+    padding-left: 15px;
+}
+
+.table thead th {
+    border-bottom: none !important;
+}
+
+.w-30{
+    width: 30%;
+}
+

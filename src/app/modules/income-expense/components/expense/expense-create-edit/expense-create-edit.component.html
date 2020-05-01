@@ -1,0 +1,92 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Expense</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-cancel" routerLink="/income-expense/expenses">
+        <mat-icon>clear</mat-icon>&nbsp;Cancel
+      </button>
+      <button class="btn btn-save" (click)="save()" [disabled]='!expenseForm.valid'>
+        <mat-icon>save_alt</mat-icon>&nbsp;Save Expense
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']">
+
+    <div class="row pt-3">
+
+      <div class="col-md-12">
+        <p style="font-weight: bold; font-size: 14px;">Expense Info</p>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Reference No.</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="refNoFormCtl">
+          <mat-error *ngIf="refNoFormCtl.hasError('required')">
+            Reference No. is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Amount</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="amountFormCtl">
+          <mat-error *ngIf="amountFormCtl.hasError('required')">
+            Amount is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Expense Type</mat-label>
+          <mat-select placeholder="Status" [formControl]="expenseTypeFormCtl">
+            <mat-option *ngFor="let option of expenseTypes" [value]="option.value">
+              {{option.value}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="expenseTypeFormCtl.hasError('required')">
+            Expense Type is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Expense Details</mat-label>
+          <input matInput placeholder="Expense Details" [formControl]="expenseDetailsFormCtl">
+          <mat-error *ngIf="expenseDetailsFormCtl.hasError('required')">
+            Expense Details is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Expense Date</mat-label>
+          <input matInput [matDatepicker]="expenseDate" placeholder="Expense Date" [formControl]="expenseDateFormCtl">
+          <mat-datepicker-toggle matSuffix [for]="expenseDate"></mat-datepicker-toggle>
+          <mat-datepicker #expenseDate></mat-datepicker>
+          <mat-error *ngIf="expenseDateFormCtl.hasError('required')">
+            Expense Date is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Comments</mat-label>
+          <input matInput placeholder="Expense Details" [formControl]="commentsFormCtl">
+          <mat-error *ngIf="commentsFormCtl.hasError('required')">
+            Comments is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+</div>

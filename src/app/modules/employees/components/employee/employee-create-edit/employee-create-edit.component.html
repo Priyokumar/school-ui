@@ -1,0 +1,478 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Add Employees</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-cancel" routerLink="/admin/employees">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Cancel
+      </button>
+      <button class="btn btn-save" (click)="save()" [disabled]='!employeeForm.valid'>
+        <mat-icon class="white-icon">save_alt</mat-icon>&nbsp;{{empId? 'Update':'Save'}}
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pb-4', 'pr-4','pl-4']" class="bg-white">
+    <mat-tab-group dynamicHeight mat-align-tabs="center">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">info</mat-icon>
+          <span style="font-size: 13px;">General Info</span>
+        </ng-template>
+
+        <div class="row pt-3">
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Basic Info</p>
+            <hr>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First name</mat-label>
+              <input matInput [formControl]="firstName">
+              <mat-error *ngIf="firstName.hasError('required')">
+                First name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Middle name</mat-label>
+              <input matInput [formControl]="middleName">
+              <mat-error *ngIf="middleName.hasError('required')">
+                Middle name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Last name</mat-label>
+              <input matInput [formControl]="lastName">
+              <mat-error *ngIf="lastName.hasError('required')">
+                Last name is <strong>required</strong>
+              </mat-error>
+
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email</mat-label>
+              <input matInput [formControl]="email">
+              <mat-error *ngIf="email.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                Please enter a valid email
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Mobile No</mat-label>
+              <input matInput [formControl]="mobileNo">
+              <mat-error *ngIf="mobileNo.hasError('required')">
+                Mobile No is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="dobt" placeholder="mm/dd/yyyy" [formControl]="dob" readonly>
+              <mat-datepicker-toggle matSuffix [for]="dobt"></mat-datepicker-toggle>
+              <mat-datepicker #dobt disabled="false"></mat-datepicker>
+              <mat-error *ngIf="dob.hasError('required')">
+                Date of birth is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Joining Date</mat-label>
+              <input matInput [matDatepicker]="joiningDatet" placeholder="mm/dd/yyyy" [formControl]="joiningDate"
+                readonly>
+              <mat-datepicker-toggle matSuffix [for]="joiningDatet"></mat-datepicker-toggle>
+              <mat-datepicker #joiningDatet></mat-datepicker>
+              <mat-error *ngIf="joiningDate.hasError('required')">
+                Joining Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Employee Type</mat-label>
+              <mat-select placeholder="Status" [formControl]="employeeType">
+                <mat-option *ngFor="let option of employeeTypes" [value]="option.name"
+                  (click)="onChangeEmployeeType(option.name)">
+                  {{option.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="employeeType.hasError('required')">
+                Employee Type is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Designation</mat-label>
+              <mat-select placeholder="Designation" [formControl]="designation">
+                <mat-option *ngFor="let option of designations" [value]="option.name">
+                  {{option.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="designation.hasError('required')">
+                Designation is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3" *ngIf="empId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Status</mat-label>
+              <mat-select placeholder="Status" [formControl]="status">
+                <mat-option *ngFor="let option of employeeStatuses" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="employeeType.hasError('required')">
+                Status is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- ============== Personal Info ===================== -->
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Personal Info</p>
+            <hr>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Pan Card</mat-label>
+              <input matInput [formControl]="panCard">
+              <mat-error *ngIf="panCard.hasError('required')">
+                Pan Card is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Aadhaar Number</mat-label>
+              <input matInput [formControl]="aadharCard">
+              <mat-error *ngIf="aadharCard.hasError('required')">
+                Aadhaar Number is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Voter ID</mat-label>
+              <input matInput [formControl]="voterId">
+              <mat-error *ngIf="voterId.hasError('required')">
+                Voter ID is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Driving Licence</mat-label>
+              <input matInput [formControl]="drivingLicence">
+              <mat-error *ngIf="drivingLicence.hasError('required')">
+                Driving Licence is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>contact_phone</mat-icon>
+          <span style="font-size: 13px;">Communication Address</span>
+        </ng-template>
+
+
+        <div class="row pt-3">
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Correspondent Address</p>
+            <hr>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First line</mat-label>
+              <input matInput [formControl]="corrFirstLine">
+              <mat-error *ngIf="corrFirstLine.hasError('required')">
+                First line is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Second line</mat-label>
+              <input matInput [formControl]="corrSecondLine">
+              <mat-error *ngIf="corrSecondLine.hasError('required')">
+                Second line is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Country</mat-label>
+              <input matInput [formControl]="corrCountry">
+              <mat-error *ngIf="corrCountry.hasError('required')">
+                Country is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>State</mat-label>
+              <input matInput [formControl]="corrState">
+              <mat-error *ngIf="corrState.hasError('required')">
+                State is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>District</mat-label>
+              <mat-select placeholder="District" [formControl]="corrDistrict">
+                <mat-option *ngFor="let option of districts" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="corrDistrict.hasError('required')">
+                District is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12 pb-4">
+            <p>Is Correspondent Address same as Permanent Address</p>
+            <mat-radio-group aria-label="Select an option" [formControl]="sameAsPermanentAddress">
+              <mat-radio-button [value]="option.value" *ngFor="let option of yesNo">{{option.key}}&nbsp;&nbsp;
+              </mat-radio-button>
+            </mat-radio-group>
+            <br>
+          </div>
+          <div class="row" *ngIf="sameAsPermanentAddress.value === false">
+            <div class="col-md-12">
+              <p style="font-weight: bold; font-size: 14px;">Permanent Address</p>
+              <hr>
+            </div>
+            <div class="col-md-4 pb-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>First line</mat-label>
+                <input matInput [formControl]="permtFirstLine">
+                <mat-error *ngIf="permtFirstLine.hasError('required')">
+                  First line is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4 pb-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Second line</mat-label>
+                <input matInput [formControl]="permtSecondLine">
+                <mat-error *ngIf="permtSecondLine.hasError('required')">
+                  Second line is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 pb-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Country</mat-label>
+                <input matInput [formControl]="permtCountry">
+                <mat-error *ngIf="permtCountry.hasError('required')">
+                  Country is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 pb-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>State</mat-label>
+                <input matInput [formControl]="permtState" disabled>
+                <mat-error *ngIf="permtState.hasError('required')">
+                  State is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 pb-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>District</mat-label>
+                <mat-select placeholder="District" [formControl]="permtDistrict">
+                  <mat-option *ngFor="let option of districts" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="permtDistrict.hasError('required')">
+                  District is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span style="font-size: 13px;">Others</span>
+        </ng-template>
+
+        <div class="row pt-3">
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Highest Qualification</p>
+            <hr>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Qualification Name</mat-label>
+              <input matInput [formControl]="qualificationNameFormCtl">
+              <mat-error *ngIf="qualificationNameFormCtl.hasError('required')">
+                Qualification Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Board / University</mat-label>
+              <input matInput [formControl]="boardFormCtl">
+              <mat-error *ngIf="boardFormCtl.hasError('required')">
+                Board / University is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Institue / University</mat-label>
+              <input matInput [formControl]="schoolInstitueFormCtl">
+              <mat-error *ngIf="schoolInstitueFormCtl.hasError('required')">
+                Institue / University is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Start date</mat-label>
+              <input matInput [matDatepicker]="startDate" [formControl]="startYearFormCtl" readonly>
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate></mat-datepicker>
+              <mat-error *ngIf="startYearFormCtl.hasError('required')">
+                Start date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Pass out Date</mat-label>
+              <input matInput [matDatepicker]="endDate" [formControl]="passOutYearFormCtl" readonly>
+              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+              <mat-datepicker #endDate disabled="false"></mat-datepicker>
+              <mat-error *ngIf="passOutYearFormCtl.hasError('required')">
+                Pass out Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Score (Percentage)</mat-label>
+              <input matInput [formControl]="scoreFormCtl" type="number">
+              <mat-error *ngIf="scoreFormCtl.hasError('required')">
+                Score (Percentage) is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Last Employee History</p>
+            <hr>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Employer Name </mat-label>
+              <input matInput [formControl]="employerNameFormCtl">
+              <mat-error *ngIf="employerNameFormCtl.hasError('required')">
+                Employer Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Address</mat-label>
+              <input matInput [formControl]="addressFormCtl">
+              <mat-error *ngIf="addressFormCtl.hasError('required')">
+                Address is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Start date</mat-label>
+              <input matInput [matDatepicker]="empStartDate" placeholder="mm/dd/yyyy" [formControl]="startDateFormCtl">
+              <mat-datepicker-toggle matSuffix [for]="empStartDate"></mat-datepicker-toggle>
+              <mat-datepicker #empStartDate></mat-datepicker>
+              <mat-error *ngIf="startDateFormCtl.hasError('required')">
+                Start date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>End Date</mat-label>
+              <input matInput [matDatepicker]="empEndDate" placeholder="mm/dd/yyyy" [formControl]="endDateFormCtl"
+                readonly>
+              <mat-datepicker-toggle matSuffix [for]="empEndDate"></mat-datepicker-toggle>
+              <mat-datepicker #empEndDate></mat-datepicker>
+              <mat-error *ngIf="endDateFormCtl.hasError('required')">
+                End date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4 pb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Designation</mat-label>
+              <mat-select placeholder="Designation" [formControl]="empHistDesignationFormCtl">
+                <mat-option *ngFor="let option of designations" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="permtDistrict.hasError('required')">
+                Designation is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+</div>

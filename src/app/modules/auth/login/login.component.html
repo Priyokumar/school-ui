@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-center align-items-start h-100 bg-gold-gradient mt-5">
+    <div class="text-center login-content d-flex justify-content-end align-items-center p-5">
+        <div class="mat-elevation-z1 w-100 p-5 bg-gold-gradient">
+            <h2 class="font-300">Sign In</h2>
+            <hr>
+            <br>
+            <br>
+            <form>
+                <p>
+                    <mat-form-field class="w-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Enter your email" [formControl]="email">
+                        <mat-error *ngIf="email.invalid">Email is required.</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="w-100">
+                        <input type="password" matInput placeholder="Enter your password" [formControl]="password">
+                        <mat-error *ngIf="password.invalid">Password is required.</mat-error>
+                    </mat-form-field>
+                </p>
+                <div class="text-right">
+                    <button class="w-100 bg-grey font-white" type="submit" mat-raised-button
+                        (click)="login()">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

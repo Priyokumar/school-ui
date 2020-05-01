@@ -1,0 +1,168 @@
+$grey: #3d3d3f;
+$light-grey: #f0f2f5;
+$white: #ffffff;
+$primary-blue: #33434f;
+$secondary-blue: #0065b2;
+
+$primary: #3d3d3f;
+$secondary: #dcc7aa;
+$tertiary: #8bf0ba;
+
+$red: #a2344c;
+$green: #467324;
+$dark-green: #345c15;
+$yellow: #958300;
+$orange: #f5821e;
+
+$black1: #3b4151;
+$black2: #1c1c1c;
+$black3: #232222;
+
+// Font color
+
+.font-primary {
+  color: $primary !important;
+}
+.font-secondary {
+  color: $secondary !important;
+}
+.font-tertiary {
+  color: $tertiary !important;
+}
+
+.font-grey {
+  color: $grey !important;
+}
+
+.font-light-grey {
+  color: $light-grey;
+}
+
+.font-white {
+  color: $white;
+}
+
+.font-primary-blue {
+  color: $primary-blue;
+}
+
+.font-secondary-blue {
+  color: $secondary-blue !important;
+}
+
+.font-red {
+  color: $red;
+}
+
+.font-green {
+  color: $green;
+}
+
+.font-dark-green {
+  color: $dark-green;
+}
+
+.font-yellow {
+  color: $yellow;
+}
+
+.font-orange {
+  color: $orange !important;
+}
+
+.font-black1 {
+  color: $black1 !important;
+}
+
+.font-black2 {
+  color: $black2;
+}
+
+.font-black3 {
+  color: $black3;
+}
+
+// Background color
+.bg-apricot {
+  background-color: $primary;
+}
+
+.bg-gold {
+  background-color: $secondary;
+}
+
+.bg-gold-gradient {
+  background: rgb(220, 199, 170);
+  background: linear-gradient(
+    180deg,
+    rgba(220, 199, 170, 1) 0%,
+    rgba(220, 199, 170, 0.7077031496192228) 35%,
+    rgba(220, 199, 170, 0.40798326166404064) 100%
+  );
+}
+
+.bg-light-gold-gradient {
+  background: rgb(220, 199, 170);
+  background: linear-gradient(
+    180deg,
+    rgba(220, 199, 170, 0.3043418050814075) 0%,
+    rgba(220, 199, 170, 0.1922969871542367) 35%,
+    rgba(220, 199, 170, 0.16708690312062324) 100%
+  );
+}
+
+.bg-tertiary {
+  background-color: $tertiary;
+}
+
+.bg-grey {
+  background-color: $grey;
+}
+
+.bg-light-grey {
+  background-color: $light-grey;
+}
+
+.bg-white {
+  background-color: $white;
+}
+
+.bg-primary-blue {
+  background-color: $primary-blue;
+}
+
+.bg-primary-blue {
+  background-color: $primary-blue;
+}
+
+.bg-secondary-blue {
+  background-color: $secondary-blue;
+}
+
+.bg-red {
+  background-color: $red;
+}
+
+.bg-green {
+  background-color: $green;
+}
+
+.bg-dark-green {
+  background-color: $dark-green;
+}
+
+.bg-yellow {
+  background-color: $yellow;
+}
+
+.bg-black1 {
+  background-color: $black1;
+}
+
+.bg-black2 {
+  background-color: $black2;
+}
+
+.bg-black3 {
+  background-color: $black3;
+}

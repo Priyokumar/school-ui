@@ -1,0 +1,248 @@
+<div class="shadow form-min-height">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-6">
+      <span class="font-400 font-banner" style="line-height: 35px;">Admission</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-cancel" routerLink="/admin/students/admissions">
+        <mat-icon class="white-icon">clear</mat-icon>&nbsp;Cancel
+      </button>
+      <button class="btn btn-save" (click)="save()" [disabled]='!admissionForm.valid'>
+        <mat-icon class="white-icon">save_alt</mat-icon>&nbsp;Save Admission
+      </button>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="['pt-1','pr-5','pl-5']" class="bg-white">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">info</mat-icon>
+          <span style="font-size: 13px;">Admission Info</span>
+        </ng-template>
+
+        <div class="row pt-3">
+
+          <!-- Student Info -->
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Student Info</p>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Search student</mat-label>
+              <mat-icon matSuffix class="search-icon">search</mat-icon>
+              <input matInput placeholder="Search student"  (mousedown)="searchStudent()">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="firstNameFormCtl" (keydown)="searchStudent()">
+              <mat-error *ngIf="firstNameFormCtl.hasError('required')">
+                First name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Last name</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="lastNameFormCtl">
+              <mat-error *ngIf="lastNameFormCtl.hasError('required')">
+                Last name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Registration Number</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="registrationNoFormCtl">
+              <mat-error *ngIf="registrationNoFormCtl.hasError('required')">
+                Registration Number is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Registration Date</mat-label>
+              <input matInput [matDatepicker]="regDate" placeholder="mm/dd/yyyy" [formControl]="registrationDateFormCtl">
+              <mat-datepicker-toggle matSuffix [for]="regDate"></mat-datepicker-toggle>
+              <mat-datepicker #regDate></mat-datepicker>
+              <mat-error *ngIf="registrationDateFormCtl.hasError('required')">
+                Registration Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Student Status</mat-label>
+              <mat-select placeholder="Status" [formControl]="studentStatusFormCtl">
+                <mat-option *ngFor="let option of studentStatuses" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="studentStatusFormCtl.hasError('required')">
+                Student Status is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div> 
+
+          <div class="col-md-12">
+            <p style="font-weight: bold; font-size: 14px;">Admission Info</p>
+          </div>
+          <div class="col-md-4" *ngIf="admId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Admission Reference No</mat-label>
+              <input matInput placeholder="Admission Reference No" [formControl]="admissionRefNoFormCtl">
+              <mat-error *ngIf="admissionRefNoFormCtl.hasError('required')">
+                Admission Reference No is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="admId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Admission Status</mat-label>
+              <mat-select placeholder="Status" [formControl]="admissionStatusFormCtl">
+                <mat-option *ngFor="let option of admissionStatuses" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="admissionStatusFormCtl.hasError('required')">
+                Admission Status is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div> 
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Academic Year</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="academicYearFormCtl">
+              <mat-error *ngIf="academicYearFormCtl.hasError('required')">
+                Academic Year is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="admId">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Admission Date</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="admissionDateFormCtl">
+              <mat-error *ngIf="admissionDateFormCtl.hasError('required')">
+                Admission Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Admission For</mat-label>
+              <mat-select #standard placeholder="Status" [formControl]="standardFormCtl" (selectionChange)="onSelectStandard(standard.value)">
+                <mat-option *ngFor="let option of standards" [value]="option.value">
+                  {{option.value}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="standardFormCtl.hasError('required')">
+                Standard is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+         
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Admission Amount</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="admissionAmountFormCtl" readonly="readonly">
+              <mat-error *ngIf="admissionAmountFormCtl.hasError('required')">
+                Admission Amount is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Paid Amount</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="paidAmountFormCtl">
+              <mat-error *ngIf="paidAmountFormCtl.hasError('required')">
+                Paid Amount is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Due Amount</mat-label>
+              <input matInput placeholder="Placeholder" [formControl]="dueAmountFormCtl">
+              <mat-error *ngIf="dueAmountFormCtl.hasError('required')">
+                Due Amount is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Promise To Pay Date</mat-label>
+              <input matInput [matDatepicker]="p2pDate" placeholder="mm/dd/yyyy" [formControl]="promiseToPayDateFormCtl">
+              <mat-datepicker-toggle matSuffix [for]="p2pDate"></mat-datepicker-toggle>
+              <mat-datepicker #p2pDate></mat-datepicker>
+              <mat-error *ngIf="promiseToPayDateFormCtl.hasError('required')">
+                Promise To Pay Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12 pt-4">
+            <span class="font-500 font-title-md">Fees</span>
+            <hr>
+          </div>
+
+          <div class="col-md-12 no-shadow w-100">
+            <table mat-table [dataSource]="feesDataSource" matSort>
+
+              <ng-container matColumnDef="feeRef">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref No.</th>
+                <td mat-cell *matCellDef="let row" class="name-class">{{row.feeRefNo}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ammount</th>
+                <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="exptdateOfPayment">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Expected Date Of Payment</th>
+                <td mat-cell *matCellDef="let row"> {{row.exptdateOfPayment}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actdateOfPayment">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Actual Date Of Payment</th>
+                <td mat-cell *matCellDef="let row"> {{row.actdateOfPayment}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="monthOf">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Month Of</th>
+                <td mat-cell *matCellDef="let row"> {{row.monthOf}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row">
+                <button class="btn btn-save" *ngIf="!row.actdateOfPayment && admId" (click)="pay(row.exptdateOfPayment)">Pay</button>  
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="feeColumns;sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: feeColumns ; let i = index;">
+              </tr>
+            </table>
+          </div>
+
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+</div>

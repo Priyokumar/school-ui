@@ -1,0 +1,82 @@
+<div class="form-min-height pb-5">
+  <div class="row p-1 bg-gold">
+    <div class="col-md-4">
+      <span class="font-400 font-banner" style="line-height: 35px;">Employees</span>
+    </div>
+    <div class="col-md-8 text-right">
+      <mat-form-field appearance="legacy" class="w-50">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <mat-icon matSuffix>filter_list</mat-icon>
+      </mat-form-field>
+      <button class="btn btn-save" [routerLink]="['/admin/employees/create']">
+        <mat-icon class="white-icon">add</mat-icon>&nbsp;Add Employee
+      </button>
+    </div>
+  </div>
+  <div class="row bg-white">
+    <!-- Employess -->
+    <div class="col-md-12 table-header mb-5">
+      <!-- Table -->
+      <div class="no-shadow w-100">
+        <table mat-table [dataSource]="employeesDataSource" matSort class="">
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">{{row.firstName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="middleName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Middle Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">{{row.middleName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">{{row.lastName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="empCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">{{row.empCode}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="employeeType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Type</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">
+              {{row.employeeType}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="designation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Desigination</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">
+              {{row.designation}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)"> {{row.status}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" class="text-right">
+              <mat-icon *ngIf="isSuperAdmin" (click)="onDeleteEmployee(row.id)"
+                style="color: firebrick; cursor: pointer;">delete</mat-icon> &nbsp;
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="employeesColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: employeesColumns ; let i = index;">
+          </tr>
+        </table>
+        <div class="d-flex justify-content-center align-items-center" style="height: 40vh;" *ngIf="errorMessage">
+          <div>
+            <h4 class="font-grey font-300">{{errorMessage}}</h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

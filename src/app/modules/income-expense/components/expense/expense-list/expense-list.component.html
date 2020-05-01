@@ -1,0 +1,74 @@
+<div class="shadow form-min-height ml-3 mr-3 mt-1 pb-5">
+  <div class="row p-1" style="background-color: #f07a7a;color: #ffffff" *ngIf="errorMessage">
+    <div class="col">
+      <span>{{errorMessage}}</span>
+    </div>
+  </div>
+  <div class="row p-1" style="background-color: #dddddd">
+    <div class="col-md-6">
+      <span style="font-weight: bold; font-size: 14px; line-height: 35px;">Expenses</span>
+    </div>
+    <div class="col-md-6 text-right">
+      <button class="btn btn-save" [routerLink]="['/admins/incomes-expenses/expenses/add']">
+        <mat-icon>add</mat-icon>&nbsp;New Expense
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Employess -->
+    <div class="col-md-12 table-header mb-5">
+      <!-- Table -->
+      <div class="no-shadow w-100">
+        <table mat-table [dataSource]="expenseDataSource" matSort>
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+            <td style="padding-left: 25px !important;" mat-cell *matCellDef="let row; let i = index">{{i+1}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="refNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref No.</th>
+            <td mat-cell *matCellDef="let row" class="name-class" (click)="onClickRow(row.id)">{{row.refNo}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+            <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expenseType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expense Type</th>
+            <td mat-cell *matCellDef="let row"> {{row.expenseType}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expenseDetails">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expense Details</th>
+            <td mat-cell *matCellDef="let row"> {{row.expenseDetails}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="comments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Comments</th>
+            <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expenseDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expense Date</th>
+            <td mat-cell *matCellDef="let row"> {{row.expenseDate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" class="text-right" (click)="onDeleteRow(row.id)">
+              <mat-icon style="color: firebrick; cursor: pointer;">clear</mat-icon> &nbsp;
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="expenseColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: expenseColumns ; let i = index;">
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
