@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { ILoginData } from '../model/auth.model';
+import { AuthService } from '../../services/auth.service';
+import { ILoginData } from '../../model/auth.model';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
@@ -13,8 +13,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class LoginComponent implements OnInit {
 
-  email = new FormControl('', null);
-  password = new FormControl('', null);
+  emailFormCtl = new FormControl('', null);
+  passwordFormCtl = new FormControl('', null);
   errorMessage: string;
 
   constructor(
@@ -34,27 +34,25 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async login() {
+  login() {
 
     const loginData: ILoginData = {
-      email: this.email.value,
-      password: this.password.value
+      email: this.emailFormCtl.value,
+      password: this.passwordFormCtl.value
     };
 
     if (!loginData.email || !loginData.password) {
       return;
     }
 
-    try {
-      const resp = await this.authService.login(loginData).toPromise();
-      this.authService.storeToken(resp.token);
-      this.router.navigate(['/admin/dashboard']);
-      this.authService.sendLoginSignal();
-    } catch (error) {
-      console.error(error);
+    this.authService.login(loginData).subscribe(data => {
+      this.router.navigate(['/otp'], { queryParams: { email: this.emailFormCtl.value } });
+    }, error => {
+      console.log(error);
       this.errorMessage = 'Invalid credential !';
       this.snackBar.open('Invalid credential.', 'Got it!', { duration: 5000 });
-    }
+    });
+
   }
 
 }

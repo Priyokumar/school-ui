@@ -91,6 +91,11 @@ $black3: #232222;
   background-color: $secondary;
 }
 
+.bg-light-greenish-gradient{
+  background: rgb(5,180,147);
+  background: linear-gradient(180deg, rgba(5,180,147,1) 0%, rgba(92,242,206,1) 100%);
+}
+
 .bg-gold-gradient {
   background: rgb(220, 199, 170);
   background: linear-gradient(

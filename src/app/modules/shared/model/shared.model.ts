@@ -63,6 +63,18 @@ export interface ISideNav {
     isExternalUrl?: boolean;
 }
 
+export interface IActionResponse {
+    actionMessage: string;
+    apiMessage: {
+        error: boolean;
+        code: number;
+        detail: string;
+        status: string;
+        timeStamp: string;
+    };
+
+}
+
 export class ApiEndpoint {
 
     // public static BASE_URL = 'http://localhost:9090';
@@ -70,6 +82,7 @@ export class ApiEndpoint {
 
     public static SECURITY = ApiEndpoint.BASE_URL + '/security';
     public static LOGIN = ApiEndpoint.BASE_URL + '/login';
+    public static LOGIN_OTP_VERIFICATION = ApiEndpoint.BASE_URL + '/login/otp-verification';
     public static EMPLOYEES = ApiEndpoint.BASE_URL + '/api/employees';
     public static ADMISSIONS = ApiEndpoint.BASE_URL + '/api/admission-fees';
     public static STUDENTS = ApiEndpoint.BASE_URL + '/api/students';

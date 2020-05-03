@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import * as moment from 'moment';
 import jwtDecoder from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
-import { ApiEndpoint } from '../../shared/model/shared.model';
+import { ApiEndpoint, IActionResponse } from '../../shared/model/shared.model';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +20,10 @@ export class AuthService {
 
   login(loginData: ILoginData) {
     return this.http.post<any>(ApiEndpoint.LOGIN, loginData);
+  }
+
+  loginOTPVerification(userName: string, otp: number) {
+    return this.http.post<IActionResponse>(ApiEndpoint.LOGIN_OTP_VERIFICATION, { otp, userName });
   }
 
   storeToken(token: any) {
